@@ -1,4 +1,9 @@
 {
+    "config": {
+        "platform" : {
+            "php" : "7.2.0"
+        }
+    },
     "require": {
         "symfony/console": "^4.2",
         "phpunit/phpunit": "^7.5"
