@@ -8,7 +8,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class MakeDrinkCommandTest extends IntegrationTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
