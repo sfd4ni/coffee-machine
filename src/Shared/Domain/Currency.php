@@ -1,6 +1,8 @@
 <?php
 
-namespace Deliverea\Shared\Domain;
+declare(strict_types=1);
+
+namespace Deliverea\CoffeeMachine\Shared\Domain;
 
 enum Currency
 {

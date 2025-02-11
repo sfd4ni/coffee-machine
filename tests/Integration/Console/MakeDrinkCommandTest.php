@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Deliverea\CoffeeMachine\Tests\Integration\Console;
 
-use Deliverea\CoffeeMachine\Console\MakeDrinkCommand;
 use Deliverea\CoffeeMachine\Tests\Integration\IntegrationTestCase;
+use Deliverea\CoffeeMachine\Drink\Infrastructure\Console\MakeDrinkCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class MakeDrinkCommandTest extends IntegrationTestCase

@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Deliverea\Shared\Domain;
+namespace Deliverea\CoffeeMachine\Shared\Domain;
 
 abstract class BoolValueObject implements ValueObject
 {

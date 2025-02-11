@@ -1,8 +1,10 @@
 <?php
 
-namespace Deliverea\CoffeeMachine\Domain;
+declare(strict_types=1);
 
-use Deliverea\Shared\Domain\IntValueObject;
+namespace Deliverea\CoffeeMachine\Drink\Domain;
+
+use Deliverea\CoffeeMachine\Shared\Domain\IntValueObject;
 
 readonly class DrinkSugarsValueObject extends IntValueObject
 {

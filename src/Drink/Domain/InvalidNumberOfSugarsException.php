@@ -1,10 +1,9 @@
 <?php
 
-namespace Deliverea\CoffeeMachine\Domain;
+declare(strict_types=1);
 
-use Deliverea\Shared\Domain\ValueObject;
-use Deliverea\Shared\Domain\IntValueObject;
-use Deliverea\Shared\Domain\BoolValueObject;
+namespace Deliverea\CoffeeMachine\Drink\Domain;
+
 use Exception;
 
 class InvalidNumberOfSugarsException extends Exception

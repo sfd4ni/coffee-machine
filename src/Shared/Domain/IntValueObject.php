@@ -1,18 +1,27 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Deliverea\Shared\Domain;
+namespace Deliverea\CoffeeMachine\Shared\Domain;
 
 readonly abstract class IntValueObject implements ValueObject
 {
 
-    final private function __construct(private int $value)
+    final private function __construct(protected int $value)
     {
         $this->validate();
     }
 
     public static function from(int $value): static
     {
+        return new static($value);
+    }
+
+    public static function tryFrom(?int $value): ?static
+    {
+        if ($value == null) {
+            return null;
+        }
         return new static($value);
     }
 

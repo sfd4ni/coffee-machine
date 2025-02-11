@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Deliverea\CoffeeMachine\Tests\Unit\Console;
 
 use PHPUnit\Framework\TestCase;
