@@ -16,7 +16,7 @@ readonly class OrderDrink
         $drink =  Drink::create(DrinkType::create($drinkType), DrinkSugarsValueObject::From($numberOfSugars), $isExtraHot);
         $money = new Money($moneyAmount, Currency::Euro);
 
-        if ($drink->drinkPrice->isBiggerThan($money)) {
+        if ($drink->price->isBiggerThan($money)) {
             throw new NotEnoughMoneyAmountException($drink);
         }
         

@@ -71,11 +71,7 @@ class MakeDrinkCommand extends Command
             $output->writeln($orderReply);
             return Command::SUCCESS;
 
-        } catch (InvalidDrinkTypeException $exception) {
-            $output->writeln($exception->getMessage());
-        } catch(NotEnoughMoneyAmountException $exception) {
-            $output->writeln($exception->getMessage());
-        } catch(InvalidNumberOfSugarsException $exception) {
+        } catch (InvalidDrinkTypeException | NotEnoughMoneyAmountException | InvalidNumberOfSugarsException $exception) {
             $output->writeln($exception->getMessage());
         }
         return Command::SUCCESS;

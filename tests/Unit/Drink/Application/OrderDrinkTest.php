@@ -2,16 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Deliverea\CoffeeMachine\Tests\Unit\Application;
+namespace Deliverea\CoffeeMachine\Tests\Unit\Drink\Application;
 
 use Deliverea\CoffeeMachine\Drink\Application\Order\NotEnoughMoneyAmountException;
-use Deliverea\CoffeeMachine\Drink\Domain\DrinkSugarsValueObject;
-use Deliverea\CoffeeMachine\Drink\Domain\Drink;
 use Deliverea\CoffeeMachine\Drink\Domain\InvalidNumberOfSugarsException;
 use Deliverea\CoffeeMachine\Drink\Application\Order\OrderDrink;
-use Deliverea\CoffeeMachine\Drink\Domain\DrinkType;
 use Deliverea\CoffeeMachine\Drink\Domain\InvalidDrinkTypeException;
-use ValueError;
 use PHPUnit\Framework\TestCase;
 
 class OrderDrinkTest extends TestCase

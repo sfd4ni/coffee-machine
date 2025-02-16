@@ -1,0 +1,20 @@
+services:
+  Deliverea\CoffeeMachine\Shared\Infrastructure\PDOConnection:
+    public: true
+    arguments:
+      - '%env(MYSQL_DSN)%'
+      - '%env(MYSQL_USER)%'
+      - '%env(MYSQL_PASSWORD)%'
+
+  Deliverea\CoffeeMachine\Drink\Infrastructure\PDODrinkRepository:
+    public: true
+    arguments:
+      - '@Deliverea\CoffeeMachine\Shared\Infrastructure\PDOConnection'
+
+  Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository: '@Deliverea\CoffeeMachine\Drink\Infrastructure\PDODrinkRepository'
+
+  Deliverea\CoffeeMachine\Drink\Infrastructure\Console\EarningsCommand:
+    public: true 
+    arguments:
+      - '@Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository'
+    

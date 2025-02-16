@@ -11,6 +11,6 @@ class NotEnoughMoneyAmountException extends Exception
     public function __construct(Drink $drink)
     {
 
-        parent::__construct(sprintf('The %s costs %.1f.', $drink->drinkType->value, $drink->drinkPrice->value()));
+        parent::__construct(sprintf('The %s costs %.1f.', $drink->drinkType->value, $drink->price->value()));
     }
 }
