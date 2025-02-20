@@ -3,6 +3,7 @@
 namespace Deliverea\CoffeeMachine\Drink\Application\Order;
 
 use Deliverea\CoffeeMachine\Drink\Domain\Drink;
+use Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository;
 use Deliverea\CoffeeMachine\Drink\Domain\DrinkType;
 use Deliverea\CoffeeMachine\Shared\Domain\Money;
 use Deliverea\CoffeeMachine\Drink\Domain\DrinkSugarsValueObject;
@@ -10,6 +11,10 @@ use Deliverea\CoffeeMachine\Shared\Domain\Currency;
 
 readonly class OrderDrink
 {
+    public function __construct(private DrinkRepository $drinkRepository)
+    {
+        
+    }
 
     public function __invoke(string $drinkType, float $moneyAmount, ?int $numberOfSugars, ?bool $isExtraHot): DrinkResponse
     {
@@ -19,6 +24,8 @@ readonly class OrderDrink
         if ($drink->price->isBiggerThan($money)) {
             throw new NotEnoughMoneyAmountException($drink);
         }
+        
+        $this->drinkRepository->save($drink);
         
         
         return DrinkResponse::createFromDrink($drink);

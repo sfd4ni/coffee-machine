@@ -2,6 +2,7 @@
 
 namespace Deliverea\CoffeeMachine\Drink\Infrastructure\Console;
 
+use Deliverea\CoffeeMachine\Drink\Application\Earnings\RetrieveEarnings;
 use Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,9 +14,20 @@ class EarningsCommand extends Command
 
     const DEFAULT_SOURCE = '';
 
+    const OUTPUT_FORMAT = "
+                        ---------------------
+                        |   Drink   |  Money |
+                        --------------------- 
+                        |   Tea     |   %.2f |
+                        ---------------------    
+                        |   Coffee  |   %.2f |
+                        ---------------------
+                        | Chocolate |   %.2f |
+                        ---------------------";
+
     protected static $defaultName = 'app:earnings';
 
-    public function __construct(private DrinkRepository $earningsRepository)
+    public function __construct(private RetrieveEarnings $retrieveEarnings)
     {
         parent::__construct(self::$defaultName);
     }
@@ -28,18 +40,13 @@ class EarningsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /*try {
-            $source = $input->getArgument('source');
-            $calculateEarnings = new CalculateEarnings($source);
-            $output->writeln($calculateEarnings->calculate());
-        
-        } catch (Exception $e) {
-            $output->writeln($e->getMessage());
-        }*/
-        
-        //$pdoDrinkRepository = new PDODrinkRepository($pdo);
-        //$pdoDrinkRepository->create();
 
+        $retrieveEarningsResponse = $this->retrieveEarnings->__invoke();
+        $retrieveReply= sprintf(self::OUTPUT_FORMAT, $retrieveEarningsResponse->tea
+                        , $retrieveEarningsResponse->coffee
+                        , $retrieveEarningsResponse->chocolate);
+
+        $output->writeln($retrieveReply);
         return self::CODE_RESPONSE;
     }
 }

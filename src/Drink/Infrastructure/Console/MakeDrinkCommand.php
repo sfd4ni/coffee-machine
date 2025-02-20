@@ -19,6 +19,11 @@ class MakeDrinkCommand extends Command
 {
     protected static $defaultName = 'app:order-drink';
 
+    public function __construct(private OrderDrink $orderDrink)
+    {
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->addArgument(
@@ -56,8 +61,7 @@ class MakeDrinkCommand extends Command
             $numberOfSugars = (int) $input->getArgument('sugars');
             $extraHot = (bool) $input->getOption('extra-hot');
 
-            $orderDrink = new OrderDrink();
-            $orderDrink($drinkType, $moneyAmount, $numberOfSugars, $extraHot);
+            $this->orderDrink->__invoke($drinkType, $moneyAmount, $numberOfSugars, $extraHot);
 
             $orderReply = sprintf('You have ordered a %s', $drinkType);
             if ($extraHot) {

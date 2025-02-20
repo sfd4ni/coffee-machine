@@ -11,10 +11,24 @@ services:
     arguments:
       - '@Deliverea\CoffeeMachine\Shared\Infrastructure\PDOConnection'
 
-  Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository: '@Deliverea\CoffeeMachine\Drink\Infrastructure\PDODrinkRepository'
+  Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository: 
+    public: true
+    alias: 'Deliverea\CoffeeMachine\Drink\Infrastructure\PDODrinkRepository'
 
   Deliverea\CoffeeMachine\Drink\Infrastructure\Console\EarningsCommand:
     public: true 
     arguments:
+      - '@Deliverea\CoffeeMachine\Drink\Application\Earnings\RetrieveEarnings'
+
+  Deliverea\CoffeeMachine\Drink\Infrastructure\Console\MakeDrinkCommand:
+    public: true 
+    arguments:
+      - '@Deliverea\CoffeeMachine\Drink\Application\Order\OrderDrink'
+
+  Deliverea\CoffeeMachine\Drink\Application\Order\OrderDrink:
+    arguments:
       - '@Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository'
-    
+  
+  Deliverea\CoffeeMachine\Drink\Application\Earnings\RetrieveEarnings:
+    arguments:
+      - '@Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository'

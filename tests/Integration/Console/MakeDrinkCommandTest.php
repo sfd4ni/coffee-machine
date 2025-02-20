@@ -14,7 +14,7 @@ class MakeDrinkCommandTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $this->application->add(new MakeDrinkCommand());
+        $this->application->add($this->container->get(MakeDrinkCommand::class));
     }
 
     /**

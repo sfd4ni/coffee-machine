@@ -7,12 +7,24 @@ namespace Deliverea\CoffeeMachine\Tests\Unit\Drink\Application;
 use Deliverea\CoffeeMachine\Drink\Application\Order\NotEnoughMoneyAmountException;
 use Deliverea\CoffeeMachine\Drink\Domain\InvalidNumberOfSugarsException;
 use Deliverea\CoffeeMachine\Drink\Application\Order\OrderDrink;
+use Deliverea\CoffeeMachine\Drink\Domain\DrinkRepository;
 use Deliverea\CoffeeMachine\Drink\Domain\InvalidDrinkTypeException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class OrderDrinkTest extends TestCase
 {
 
+    private OrderDrink $orderDrink;
+    private DrinkRepository | MockObject $drinkRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->drinkRepository = $this->createMock(DrinkRepository::class);
+        $this->orderDrink = new OrderDrink($this->drinkRepository);
+    }
     /** 
      * @test
      * @dataProvider numberOfSugarsDataProvider
@@ -23,11 +35,12 @@ class OrderDrinkTest extends TestCase
         if ($numberOfSugars['exception']) {
             $this->expectException(InvalidNumberOfSugarsException::class);
             $this->expectExceptionMessage("The number of sugars should be between 0 and 2.");
+            $this->drinkRepository->expects($this->never())->method('save');
         } else {
-            $this->expectNotToPerformAssertions();
+            $this->drinkRepository->expects($this->once())->method('save');
         }
-        $orderDrink = new OrderDrink();
-        $orderDrink('chocolate', 0.8, $numberOfSugars['number'], false);
+
+        $this->orderDrink->__invoke('chocolate', 0.8, $numberOfSugars['number'], false);
     }
 
     /** 
@@ -40,11 +53,11 @@ class OrderDrinkTest extends TestCase
         if ($drinkTypes['exception']) {
             $this->expectException(InvalidDrinkTypeException::class);
             $this->expectExceptionMessage("The drink type should be tea, coffee or chocolate.");
+            $this->drinkRepository->expects($this->never())->method('save');
         } else {
-            $this->expectNotToPerformAssertions();
+            $this->drinkRepository->expects($this->once())->method('save');
         }
-        $orderDrink = new OrderDrink();
-        $orderDrink($drinkTypes['drinkType'], 0.8, 1, false);
+        $this->orderDrink->__invoke($drinkTypes['drinkType'], 0.8, 1, false);
     }
 
     /** 
@@ -56,12 +69,11 @@ class OrderDrinkTest extends TestCase
         
         if ($moneyAmountDataProvider['exception']) {
             $this->expectException(NotEnoughMoneyAmountException::class);
-            //$this->expectExceptionMessage(sprintf('The %s costs %f.', NotEnoughMoneyAmountException::, $drink->drinkPrice->value()));
+            $this->drinkRepository->expects($this->never())->method('save');
         } else {
-            $this->expectNotToPerformAssertions();
+            $this->drinkRepository->expects($this->once())->method('save');
         }
-        $orderDrink = new OrderDrink();
-        $orderDrink($moneyAmountDataProvider['drinkType'], $moneyAmountDataProvider['amount'], 1, false);
+        $this->orderDrink->__invoke($moneyAmountDataProvider['drinkType'], $moneyAmountDataProvider['amount'], 1, false);
     }
 
     public static function numberOfSugarsDataProvider(): array
